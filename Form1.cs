@@ -17,7 +17,7 @@ namespace Pongerino
             InitializeComponent();
         }
 
-        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        private void Form1_KeyDown(object sender, KeyEventArgs e) // check key down (holding)
         {
             if (e.KeyCode == Keys.W)
             {
@@ -41,7 +41,7 @@ namespace Pongerino
             }
         }
 
-        private void Form1_KeyUp(object sender, KeyEventArgs e)
+        private void Form1_KeyUp(object sender, KeyEventArgs e) // check key release
         {
             if (e.KeyCode == Keys.W)
             {
@@ -65,7 +65,7 @@ namespace Pongerino
             }
         }
 
-        private void timer1_Tick(object sender, EventArgs e)
+        private void timer1_Tick(object sender, EventArgs e) // timer for player one
         {
             if (p1Up && PlayerOne.Location.Y > 3) // 3 fits the distance from top to player best
             {
@@ -77,7 +77,7 @@ namespace Pongerino
             }
         }
 
-        private void timer2_Tick(object sender, EventArgs e)
+        private void timer2_Tick(object sender, EventArgs e) // timer for player two
         {
             if (p2Up && PlayerTwo.Location.Y > 3)
             {
@@ -89,23 +89,23 @@ namespace Pongerino
             }
         }
 
-        private void timer3_Tick(object sender, EventArgs e)
+        private void timer3_Tick(object sender, EventArgs e) // timer for ball speed and interaction
         {
             Ball.Top -= vertical_start_speed;
             Ball.Left -= horizontal_start_speed;
 
-            if (Ball.Left < 0)
+            if (Ball.Left < 0) // check if ball exits on the left
             {
-                Ball.Left = ClientSize.Width / 2;
+                Ball.Left = ClientSize.Width / 2; // center ball after reset
                 Ball.Top = ClientSize.Height / 2;
-                horizontal_start_speed = 3;
+                horizontal_start_speed = 3; // reset initial speed
                 vertical_start_speed = 3;
                 horizontal_start_speed = -horizontal_start_speed; // invert trajectory
                 playerTwoScore++;
-                label2.Text = playerTwoScore.ToString();
+                label2.Text = playerTwoScore.ToString(); 
             }
 
-            if (Ball.Left + Ball.Width > ClientSize.Width)
+            if (Ball.Left + Ball.Width > ClientSize.Width) // check if ball exits on the right
             {
                 Ball.Left = ClientSize.Width / 2;
                 Ball.Top = ClientSize.Height / 2;
@@ -113,15 +113,15 @@ namespace Pongerino
                 vertical_start_speed = 3;
                 horizontal_start_speed = -horizontal_start_speed;
                 playerOneScore++;
-                label1.Text = playerOneScore.ToString();
+                label1.Text = playerOneScore.ToString(); // update labels on score
             }
 
-            if (Ball.Top < 0 || Ball.Top + Ball.Height > ClientSize.Height)
+            if (Ball.Top < 0 || Ball.Top + Ball.Height > ClientSize.Height) // check if ball hits top or bottom border
             {
                 vertical_start_speed = -vertical_start_speed;
             }
 
-            if (Ball.Bounds.IntersectsWith(PlayerOne.Bounds)) // if ball hits player
+            if (Ball.Bounds.IntersectsWith(PlayerOne.Bounds)) // if ball hits player one
             {
                 horizontal_start_speed = -horizontal_start_speed;
                 horizontal_start_speed -= 2;
